@@ -12,7 +12,7 @@ INCLUDES =
 MODE ?= release
 
 # Base warnings/defs
-CFLAGS_BASE=-Wall -Wno-psabi  -Werror -Ilibs
+CFLAGS_BASE=-Wall -Wno-psabi -Werror -Ilibs
 
 # Select flags per mode (OPTIMIZE goes into CFLAGS in release; LTO linked only in release)
 ifeq ($(MODE),debug)
@@ -32,10 +32,10 @@ SOURCES=$(shell find -L $(SRC_DIR) -type f -name '*.c')
 
 # Per-target object lists in separate dirs
 SERVER_OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/server/%.o,$(SOURCES))
-CLIENT_OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/client/%.o,$(SOURCES))
+# CLIENT_OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/client/%.o,$(SOURCES))
 
 # Executables
-EXECUTABLES=server client
+EXECUTABLES=server #client
 
 # Default target
 all: $(EXECUTABLES)
@@ -47,19 +47,19 @@ debug-server:
 	@-rm -f WADEBUG.txt
 	gdb server -ex run
 
-debug-client:
-	@$(MAKE) MODE=debug --no-print-directory clean client
-	@-rm -f WADEBUG.txt
-	gdb client -ex run
+#debug-client:
+#	@$(MAKE) MODE=debug --no-print-directory clean client
+#	@-rm -f WADEBUG.txt
+#	gdb client -ex run
 
 # Link rules
 server: $(SERVER_OBJECTS)
 	@echo "Linking $@..."
 	@$(CC) $(LDFLAGS) $^ -o $@ $(LIBS)
 
-client: $(CLIENT_OBJECTS)
-	@echo "Linking $@..."
-	@$(CC) $(LDFLAGS) $^ -o $@ $(LIBS)
+#client: $(CLIENT_OBJECTS)
+#	@echo "Linking $@..."
+#	@$(CC) $(LDFLAGS) $^ -o $@ $(LIBS)
 
 # Compile rules with per-target defines
 $(BUILD_DIR)/server/%.o: $(SRC_DIR)/%.c
@@ -67,10 +67,10 @@ $(BUILD_DIR)/server/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -DTCPSERVER -c $< -o $@
 
-$(BUILD_DIR)/client/%.o: $(SRC_DIR)/%.c
-	@echo "Compiling (client) $<..."
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -DTCPCLIENT -c $< -o $@
+#$(BUILD_DIR)/client/%.o: $(SRC_DIR)/%.c
+#	@echo "Compiling (client) $<..."
+#	@mkdir -p $(dir $@)
+#	@$(CC) $(CFLAGS) $(INCLUDES) -DTCPCLIENT -c $< -o $@
 
 # Specific file compilation (kept; builds into server tree by default)
 FILE=
@@ -84,4 +84,4 @@ clean:
 	@echo "Cleaning up..."
 	@rm -rf $(BUILD_DIR) $(EXECUTABLES)
 
-.PHONY: all clean compile debug-server debug-client
+.PHONY: all clean compile debug-server #debug-client

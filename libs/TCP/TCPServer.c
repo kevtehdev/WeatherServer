@@ -89,8 +89,8 @@ int TCPServer_Accept(TCPServer* _Server)
 	}
 
 	TCPServer_Nonblocking(socket_fd);
-
-	int result = _Server->onAccept(socket_fd, _Server->context);
+	printf("TCPServer: accepted connection fd=%d\n", socket_fd); // Ta bort denna senare
+	int result = _Server->onAccept(socket_fd, _Server->context); // Här anropar vi HTTPServer_OnAccept
 	if(result != 0)
 		close(socket_fd);
 

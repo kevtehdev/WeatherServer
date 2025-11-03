@@ -1,9 +1,10 @@
-
 #ifndef __WeatherServerInstance_h_
 #define __WeatherServerInstance_h_
 
 #include "smw.h"
-#include "HTTPServer/HTTPServerConnection.h"
+#include "utils.h"
+#include "../HTTPServer/HTTPServerConnection.h"
+#include "../WeatherData.h"
 
 typedef struct
 {

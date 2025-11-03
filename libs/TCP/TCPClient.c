@@ -1,5 +1,3 @@
-
-
 #include "TCPClient.h"
 
 int TCPClient_Initiate(TCPClient* c, int fd)

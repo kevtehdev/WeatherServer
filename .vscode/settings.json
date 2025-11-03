@@ -3,6 +3,9 @@
         "tcpclient.h": "c",
         "types.h": "c",
         "fcntl.h": "c",
-        "httpserverconnection.h": "c"
+        "httpserverconnection.h": "c",
+        "time.h": "c",
+        "stdlib.h": "c",
+        "weatherdata.h": "c"
     }
 }

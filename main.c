@@ -1,12 +1,7 @@
 #include <stdio.h>
-
-
 #include "smw.h"
 #include "utils.h"
-
-#include "WeatherServer.h"
-
-
+#include "libs/WeatherServer/WeatherServer.h"
 
 
 int main()
@@ -18,7 +13,6 @@ int main()
 
 	while(1)
 	{
-		
 		smw_work(SystemMonotonicMS());
 	}
 
@@ -30,3 +24,5 @@ int main()
 }
 
 
+// Ta bort rad 92 i TCPServer.c innan vi pushar till riktig server
+// ^ Printf kan störa non-blocking processer i high load
