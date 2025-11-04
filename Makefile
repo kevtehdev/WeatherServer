@@ -32,7 +32,7 @@ SOURCES=$(shell find -L $(SRC_DIR) -type f -name '*.c')
 
 # Per-target object lists in separate dirs
 SERVER_OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/server/%.o,$(SOURCES))
-# CLIENT_OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/client/%.o,$(SOURCES))
+#CLIENT_OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/client/%.o,$(SOURCES))
 
 # Executables
 EXECUTABLES=server #client
@@ -84,4 +84,4 @@ clean:
 	@echo "Cleaning up..."
 	@rm -rf $(BUILD_DIR) $(EXECUTABLES)
 
-.PHONY: all clean compile debug-server #debug-client
+.PHONY: all clean compile debug-server debug-client

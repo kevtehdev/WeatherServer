@@ -55,12 +55,10 @@ int WeatherServerInstance_OnRequest(void* _Context)
         json_response = WeatherData_GeoToJson(geo_data);
         WeatherData_FreeGeoData(geo_data);
     // If not a geo, try as weather.
-    } else if (weather_data){
+    } else {
 		json_response = WeatherData_WeatherToJson(weather_data);
 		WeatherData_FreeWeatherData(weather_data);
-    } else {
-		json_response = NULL;
-	}
+    }
 
     if (json_response == NULL) {
         // Handle error - send 400 Bad Request with correct Content-Length
@@ -74,7 +72,6 @@ int WeatherServerInstance_OnRequest(void* _Context)
                                   "Content-Length: %zu\r\n"
                                   "\r\n",
                                   body_len);
-        // Nånting ä riktigt fel här alltså...
         if (header_len > 0) {
             TCPClient_Write(&_Connection->tcpClient, (uint8_t*)header, header_len);
         }
